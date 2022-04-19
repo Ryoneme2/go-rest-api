@@ -1,11 +1,14 @@
 FROM golang:1.18.0-alpine3.15 as base
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/go
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/go
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+CMD ["nodemon","--exec", "go", "./src/github.com/Ryoneme2/go-restful-api/cmd/server/main.go","--signal", "SIGTERM"]
 
-CMD ["go", "run", "./src/github.com/Ryoneme2/go-restful-api/cmd/server/main.go"]
+FROM cosmtrek/air as air
+
+WORKDIR /usr/src/go
+

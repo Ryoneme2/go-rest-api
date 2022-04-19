@@ -15,4 +15,17 @@ services:
       - '8080'
     ports:
       - '8080:8080'
-    command: go run ./src/github.com/Ryoneme2/go-restful-api/cmd/server/main.go
+    command: nodemon --exec go run ./src/github.com/Ryoneme2/go-restful-api/cmd/server/main.go --signal SIGTERM
+  air:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: air
+    container_name: air
+    expose:
+      - '5000'
+    ports:
+      - '5000:5000'
+    command: air --signal SIGTERM
+    depends_on:
+      - go-docker
