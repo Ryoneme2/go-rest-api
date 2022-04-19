@@ -1,31 +1,14 @@
 version: '3.8'
 
 services:
-  go-docker:
-    platform: linux/arm64
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: base
-    # volumes:
-    #   - ./src:/usr/src/app/src
-    #   - ./nodemon.json:/usr/src/app/nodemon.json
-    container_name: go-docker
-    expose:
-      - '8080'
-    ports:
-      - '8080:8080'
-    command: nodemon --exec go run ./src/github.com/Ryoneme2/go-restful-api/cmd/server/main.go --signal SIGTERM
   air:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: air
+    image: golang:1.18.0-alpine3.15
+    working_dir: /go/src/github.com/foolish15/test-hot-reload-with-air
     container_name: air
-    expose:
-      - '5000'
     ports:
-      - '5000:5000'
-    command: air --signal SIGTERM
-    depends_on:
-      - go-docker
+      - 8080:8080
+    expose:
+      - 8080
+    volumes:
+      - ./:/go/src/github.com/foolish15/test-hot-reload-with-air
+    entrypoint: ["./air"]
