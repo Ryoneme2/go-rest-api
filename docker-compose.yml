@@ -3,12 +3,12 @@ version: '3.8'
 services:
   air:
     image: golang:1.18.0-alpine3.15
-    working_dir: /go/src/github.com/foolish15/test-hot-reload-with-air
+    working_dir: /go/app/src
     container_name: air
     ports:
       - 8080:8080
     expose:
       - 8080
     volumes:
-      - ./:/go/src/github.com/foolish15/test-hot-reload-with-air
+      - ./:/go/app/src
     entrypoint: ["./air"]

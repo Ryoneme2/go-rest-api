@@ -1,4 +1,4 @@
-module github.com/Ryoneme2/go-restful-api
+module go-server-docker
 
 go 1.17
 
